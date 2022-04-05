@@ -56,6 +56,48 @@ export const loadUser = () => {
 };
 
 /**
+ * Email Check.
+ *
+ * @param {string} email
+ *   The email address of the user.
+ */
+export const email_check = (email: string): any => {
+    return async (dispatch: CallableFunction) => {
+        try {
+            // Make api requests.
+            await axios.get("/sanctum/csrf-cookie");
+            const res = await axios.post("/api/email_check", {
+                email,
+            });
+
+            // Authentication was successful.
+            if (res.status === 204) {
+                dispatch({
+                    type: types.REGISTER_EMAIL_OK
+                });
+            }
+        } catch (error: any) {
+            if (error.response && error.response.status === 422) {
+                return dispatch({
+                    type: types.REGISTER_ERROR,
+                    payload: "이미 있음.",
+                });
+            }
+            if (error.response && error.response.status === 419) {
+                return dispatch({
+                    type: types.REGISTER_ERROR,
+                    payload: "Application access denied.",
+                });
+            } else {
+                return dispatch({
+                    type: types.AUTHENTICATION_ERROR,
+                    payload: "Sorry, somethig went wrong.",
+                });
+            }
+        }
+    };
+};
+/**
  * Login functionality.
  *
  * @param {string} email
@@ -87,7 +129,13 @@ export const login = (email: string, password: string): any => {
             if (error.response && error.response.status === 422) {
                 return dispatch({
                     type: types.LOGIN_ERROR,
-                    payload: "Email or password are incorrect.",
+                    payload: "Email are incorrect.",
+                });
+            }
+            if (error.response && error.response.status === 423) {
+                return dispatch({
+                    type: types.LOGIN_ERROR,
+                    payload: "password are incorrect.",
                 });
             }
             if (error.response && error.response.status === 419) {

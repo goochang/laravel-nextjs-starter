@@ -10,7 +10,7 @@
 import React, {ReactElement, useEffect, useState} from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {register} from "@/store/auth/authActions";
+import {register, email_check} from "@/store/auth/authActions";
 import {UserValidator} from "@/services/UserValidator";
 import {Card} from "@/components/Card/Card";
 import {TextInput} from "@/components/Form/FormElement";
@@ -71,6 +71,27 @@ function Register(props: any): ReactElement {
     /**
      * Submit the form.
      */
+    const email_check = (e: React.FormEvent<HTMLInputElement>): void => {
+        // const userValidator: UserValidator = new UserValidator();
+        const email = e.currentTarget.value;
+
+        // Check for valid email address.
+        // const isEmailValid: boolean = userValidator.validateEmail(email);
+        // if (!isEmailValid) {
+        //     setFormData({
+        //         ...formData,
+        //         emailError: "Please provide a valid email address",
+        //     });
+        //     return;
+        // }
+
+        // Make API call if everything is fine.
+        props.email_check(email);
+    };
+
+    /**
+     * Submit the form.
+     */
     const submit = (): Promise<any> => {
         const {name, email, password, password_confirmed} = formData;
 
@@ -98,8 +119,8 @@ function Register(props: any): ReactElement {
 
         // Make API call if validaton was successful.
         props.register(name, email, password, password_confirmed);
-    };
-
+    };    
+    
     // The Return statement.
     return (
         <div className="w-screen h-screen relative">
@@ -139,6 +160,7 @@ function Register(props: any): ReactElement {
                             placeholder="Your email..."
                             onChange={(e) => {
                                 handleInputChange(e);
+                                email_check(e);
                             }}
                             name="email"
                             errorMsg={formData.emailError}
@@ -204,5 +226,6 @@ const mapStateToProps = (state: any) => ({
 Register.propTypes = {
     props: PropTypes.object,
     register: PropTypes.func,
+    email_check: PropTypes.func,
 };
-export default connect(mapStateToProps, {register})(Register);
+export default connect(mapStateToProps, {register, email_check})(Register);

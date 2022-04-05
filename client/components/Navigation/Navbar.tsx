@@ -10,6 +10,7 @@
 import Link from "next/link";
 import {ReactElement, useState} from "react";
 import PropTypes from "prop-types";
+import { PrimaryButton } from "../Button/Button";
 
 /**
  * The default nabvar.
@@ -158,13 +159,27 @@ NavbarMenuLink.propTypes = {
 };
 
 // The horizontal menu bar.
-export function MenuBar({ onClick }): ReactElement {
+export function MenuBar(
+    // { onClick }
+    ): ReactElement {
     return (
-        <nav className="w-screen py-3 px-2 flex sticky top-0 items-center justify-between bg-purple-50 z-40">
+        <nav className="w-screen py-40 px-60 flex sticky top-0 items-center justify-between nav-bg z-40">
             <Link href="/">
-                <a>Blog</a>
+                <a className="logo mr-40">NUSEUM</a>
             </Link>
-            <div className="h-full cursor-pointer" onClick={onClick}>
+            <div className="search_box">
+                <input type="text" placeholder="검색어를 입력해주세요." value={"qwe"} />
+            </div>
+            <div>
+                <a>Drops</a>
+                <a>Redrops</a>
+                <a>...</a>
+            </div>
+
+            <div className="mr-auto">
+                <PrimaryButton>Connect Wallet</PrimaryButton>
+            </div>
+            {/* <div className="h-full cursor-pointer" onClick={onClick}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -179,7 +194,7 @@ export function MenuBar({ onClick }): ReactElement {
                         d="M4 6h16M4 12h16m-7 6h7"
                     />
                 </svg>
-            </div>
+            </div> */}
         </nav>
     );
 }

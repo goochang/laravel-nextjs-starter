@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { AuthGuard } from "@/services/Auth/AuthGuard";
 import { useEffect } from "react";
 import * as types from "@/store/actionTypes";
-import TagManager from "react-gtm-module";
+// import TagManager from "react-gtm-module";
 import { Navbar } from "@/components/Navigation/Navbar";
 import { AdvancedFooter } from "@/components/Navigation/Footer";
 import { useRouter } from "next/router";
@@ -14,14 +14,14 @@ require("./../config/config.tsx");
 
 function MyApp(props: any) {
     // Initialize Google Tag Manager via react-gtm-module.
-    if (process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID) {
-        const tagManagerArgs = {
-            gtmId: process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
-        };
-        if (process.browser) {
-            TagManager.initialize(tagManagerArgs);
-        }
-    }
+    // if (process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID) {
+    //     const tagManagerArgs = {
+    //         gtmId: process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
+    //     };
+    //     if (process.browser) {
+    //         TagManager.initialize(tagManagerArgs);
+    //     }
+    // }
 
     const router = useRouter();
     // Check if we're on a protected route.

@@ -94,6 +94,14 @@ const auth = (state = initState, action: { type: string; payload: any }) => {
                 user: {},
                 registerError: action.payload,
             };
+        case types.REGISTER_EMAIL_OK:
+            return {
+                ...state,
+                registerLoading: false,
+                isAuthenticated: false,
+                user: {},
+                registerError: "",
+            };
         case types.LOGOUT:
             return {
                 ...state,

@@ -17,3 +17,4 @@ client/package.json
 client/package-lock.json
 composer.lock
 client/next-env.d.ts
+package-lock.json

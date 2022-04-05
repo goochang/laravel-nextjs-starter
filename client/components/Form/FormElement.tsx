@@ -32,6 +32,7 @@ export function TextInput(props: any): ReactElement {
                 name={props.name}
                 placeholder={props.placeholder || ""}
                 className={inputClasses}
+                autoComplete="off"
             />
             {/* Shor error message if given. */}
             {props.errorMsg && (

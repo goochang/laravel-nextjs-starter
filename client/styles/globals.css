@@ -5,3 +5,65 @@
 .border-top-colored {
     border-top-color: #4f46e5;
 }
+.mt-auto,
+.my-auto {
+  margin-top: auto !important;
+}
+
+.mr-auto,
+.mx-auto {
+  margin-right: auto !important;
+}
+
+.mb-auto,
+.my-auto {
+  margin-bottom: auto !important;
+}
+
+.ml-auto,
+.mx-auto {
+  margin-left: auto !important;
+}
+
+.ml-40 {
+  margin-left: 40px;
+}
+.mr-40 {
+  margin-right: 40px;
+}
+
+.py-40 {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+.px-60 {
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* custom */
+.nav-bg {
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.16);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.search_box{
+  width: 900px;
+  height: 40px;
+  background-color: var(--white);
+  border-radius: 20px;
+  border: solid 1px #d1ccd8;
+}
+.search_box input {
+  height: 40px;
+  border: 0;
+  background-color: unset;
+  margin-left: 48px;
+  vertical-align: middle;
+  line-height: 40px;
+}
