@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 // });
 
 use App\Http\Controllers\Auth\LoginController;
-
 Route::post('login', [LoginController::class, 'login']);
 Route::post('email_check', [LoginController::class, 'email_check']);
+Route::post('logout', [LoginController::class, 'logout']);
+Route::get('user', [LoginController::class, 'user']);
+
+use App\Http\Controllers\Auth\RegisterController;
+Route::post('register', [RegisterController::class, 'register']);

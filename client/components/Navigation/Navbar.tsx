@@ -162,40 +162,108 @@ NavbarMenuLink.propTypes = {
 export function MenuBar(
     // { onClick }
     ): ReactElement {
+    const [hovered, setHovered] = useState(false);
+    const [hoveredMenu, setHoveredMenu] = useState("");
+    const [hoveredSecondMenu, setHoveredSecondMenu] = useState("");
+    const toggleEnter = (e) => {
+        e.preventDefault;
+        const name = e.target.dataset.name;
+        setHoveredMenu(name);
+        setHoveredSecondMenu("");
+        if(!hovered){
+            setHovered(!hovered)
+        }
+    };
+    const toggleSecondEnter = (e) => {
+        e.preventDefault;
+        const name = e.target.dataset.name;
+        setHoveredSecondMenu(name);
+    };
+    const toggleLeave = (e) => {
+        // 임시
+        if(e.clientY>=580){
+            setHovered(!hovered)
+            setHoveredMenu("");
+            setHoveredSecondMenu("");
+        }
+    };
     return (
-        <nav className="w-screen py-40 px-60 flex sticky top-0 items-center justify-between nav-bg z-40">
+        <>
+        <nav className={`w-screen py-40 px-60 flex fixed top-0 items-center justify-between z-40 ${hovered ? 'hover' : ''} `}
+        >
             <Link href="/">
                 <a className="logo mr-40">NUSEUM</a>
             </Link>
-            <div className="search_box">
-                <input type="text" placeholder="검색어를 입력해주세요." value={"qwe"} />
-            </div>
-            <div>
-                <a>Drops</a>
-                <a>Redrops</a>
-                <a>...</a>
+            
+            <div className="center_menu nav_menu">
+                <ul className="flex">
+                   <li className="one-dep">
+                        <a onMouseEnter={toggleEnter} data-name={"about"} className={`one-link ${hoveredMenu == "about" ? 'red-line' : '' }`}
+                        >ABOUT NIA</a>
+                        <ul className={`two-dep ${hoveredMenu == "about" ? 'show' : '' }`}>
+                            <li>
+                                <a onMouseEnter={toggleSecondEnter} className="two-link" data-name={"introduce"}>소개 인삿말</a>
+                                <ul className={`thr-dep ${hoveredSecondMenu == "introduce" ? 'show' : '' }`}>
+                                    <li>
+                                        <a className="thr-link">니아 코퍼레이션 소개</a>
+                                    </li>
+                                    <li>
+                                        <a className="thr-link">경영진 소개</a>
+                                    </li>
+                                    <li>
+                                        <a className="thr-link">회사 조직도</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a onMouseEnter={toggleSecondEnter} className="two-link" data-name={"vision"}>비전과 목표</a>
+                            </li>
+                            <li>
+                                <a onMouseEnter={toggleSecondEnter} className="two-link" data-name={"management"}>지속가능한 경영</a>
+                            </li>
+                            <li>
+                                <a onMouseEnter={toggleSecondEnter} className="two-link" data-name={"ci"}>CI 소개</a>
+                            </li>
+                        </ul>
+                    </li> 
+                    <li>
+                        <a onMouseEnter={toggleEnter} data-name={"brand"} className={`one-link ${hoveredMenu == "brand" ? 'red-line' : '' }`}
+                        >OUR BRAND</a>
+                        <ul className={`two-dep ${hoveredMenu == "brand" ? 'show' : '' }`}>
+                            <li>
+                                <a onMouseEnter={toggleSecondEnter} className="two-link" data-name={"brand"}>계열사 소개</a>
+                                <ul className={`thr-dep ${hoveredSecondMenu == "brand" ? 'show' : '' }`}>
+                                    <li>
+                                        <a className="thr-link">소개 인삿말</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a onMouseEnter={toggleSecondEnter} className="two-link" data-name={"team"}>니아 팀 문화</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a onMouseEnter={toggleEnter} data-name={"project"} className={`one-link ${hoveredMenu == "project" ? 'red-line' : '' }`}
+                        >PROJECT</a>
+                    </li>
+                    <li>
+                        <a onMouseEnter={toggleEnter} data-name={"contact"} className={`one-link ${hoveredMenu == "contact" ? 'red-line' : '' }`}
+                        >CONTACT US</a>
+                    </li>
+                </ul>
             </div>
 
-            <div className="mr-auto">
-                <PrimaryButton>Connect Wallet</PrimaryButton>
+            <div className="side_menu nav_menu">
+                <a>회사 안내</a>
+                <a>KOR</a>
             </div>
-            {/* <div className="h-full cursor-pointer" onClick={onClick}>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="h-full w-8"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M4 6h16M4 12h16m-7 6h7"
-                    />
-                </svg>
-            </div> */}
+
+            
+            <div className={`nav-bg ${hovered ? 'show' : ''}`} onMouseLeave={toggleLeave} ></div>
         </nav>
+        <div className="dimd-nav-bg"></div>
+        </>
     );
 }
 MenuBar.propTypes = {

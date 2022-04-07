@@ -9,14 +9,19 @@
     "lint": "eslint --fix ."
   },
   "dependencies": {
+    "@fullpage/react-fullpage": "^0.1.22",
     "axios": "^0.21.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "jquery": "^3.6.0",
     "next": "^11.0.1",
+    "pageable": "^0.6.8",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-full-page": "^0.1.12",
     "react-gtm-module": "^2.0.11",
     "react-redux": "^7.2.2",
+    "react-scrollmagic": "^2.3.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "validator": "^13.5.2"

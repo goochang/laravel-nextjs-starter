@@ -188,6 +188,9 @@ export const register = (
             // Load the user if registration was successful.
             if (res.status === 201) {
                 dispatch(loadUser());
+                dispatch({
+                    type: types.REGISTER_SUCCESS,
+                });
             }
         } catch (error: any) {
             if (error.response && error.response.status === 422) {

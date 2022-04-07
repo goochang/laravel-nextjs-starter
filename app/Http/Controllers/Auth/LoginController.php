@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -42,32 +43,38 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    protected function logout(Request $request)
+    {
+        Auth::guard()->logout();
+    }
     protected function login(Request $request)
     {
         // 유저 조회
         $user = User::where([['email', $request->email]])->first();
-        // Email로 조회해서 계정있는지
+        // Email 계정 조회
         if(empty($user)){
             return response()->json(
                 ['error' => 'no email account'], 422
             );
         }
 
-        $user = User::where([['email', $request->email],['password', $request->password]])->first();
-        // Email+PWD로 조회해서 계정있는지
-        if(empty($user)){
+        // PWD로 조회
+        if(Hash::check($request->password, $user->password)){
+            Auth::login($user);
+
+            Log::info(Auth::user());
+            return response()->json(
+                status: 204,
+                data : $user
+            );
+        } else {
             return response()->json(
                 ['error' => 'no pwd account'], 423
             );
         }
 
         // 유저 인증
-        Auth::login($user);
-
-        return response()->json(
-            status: 204,
-            data : $user
-        );
+        
     }
 
     protected function email_check(Request $request)
@@ -87,8 +94,8 @@ class LoginController extends Controller
         );
     }
 
-    protected function api_user(Request $request){
-        $user = auth()->user();
+    protected function user(Request $request){
+        $user = Auth::user();
         if(isset($user)){
             return response()->json(
                 status: 200,
